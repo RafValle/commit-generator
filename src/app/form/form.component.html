@@ -1,34 +1,37 @@
 <form (ngSubmit)="onSubmit()">
-    <label for="cardNumber">Card Number:</label>
-    <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" required>
-  
-    <label for="squad">Squad:</label>
-    <input type="text" id="squad" [(ngModel)]="squad" name="squad" required>
-  
-    <label for="cardTitle">Card Title:</label>
-    <input type="text" id="cardTitle" [(ngModel)]="cardTitle" name="cardTitle" required>
-  
-    <label for="workType">Work Type:</label>
-    <select id="workType" [(ngModel)]="workType" name="workType" required>
-      <option value="docs">Documentação: apenas mudanças de documentação</option>
-      <option value="feat">Funcionalidade: uma nova funcionalidade</option>
-      <option value="fix">Correção: a correção de um bug</option>
-      <option value="perf">Performance: mudança de código focada em melhorar performance</option>
-      <option value="refactor">Refatoração: mudança de código que não adiciona uma funcionalidade e também não corrige um bug</option>
-      <option value="style">Estilo: mudanças no código que não afetam seu significado (espaço em branco, formatação, ponto e vírgula, etc)</option>
-      <option value="test">Teste: adicionar ou corrigir testes</option>
-    </select>
-  
-    <button type="submit">Generate</button>
-  </form>
-  
-  <div *ngIf="outputBranch">
-    <h3>Branch Name:</h3>
-    <p>{{ outputBranch }}</p>
-  </div>
-  
-  <div *ngIf="outputCommit">
-    <h3>Commit Message:</h3>
-    <p>{{ outputCommit }}</p>
-  </div>
-  
+  <label for="cardNumber">Card Number:</label>
+  <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" required>
+
+  <label for="squad">Squad:</label>
+  <input type="text" id="squad" [(ngModel)]="squad" name="squad" required>
+
+  <label for="cardTitle">Card Title:</label>
+  <input type="text" id="cardTitle" [(ngModel)]="cardTitle" name="cardTitle" required>
+
+  <label for="workType">Work Type:</label>
+  <select id="workType" [(ngModel)]="workType" name="workType" required>
+    <option value="docs">Documentação: apenas mudanças de documentação</option>
+    <option value="feat">Funcionalidade: uma nova funcionalidade</option>
+    <option value="fix">Correção: a correção de um bug</option>
+    <option value="perf">Performance: mudança de código focada em melhorar performance</option>
+    <option value="refactor">Refatoração: mudança de código que não adiciona uma funcionalidade e também não corrige um bug</option>
+    <option value="style">Estilo: mudanças no código que não afetam seu significado (espaço em branco, formatação, ponto e vírgula, etc)</option>
+    <option value="test">Teste: adicionar ou corrigir testes</option>
+  </select>
+
+  <button type="submit">Generate</button>
+</form>
+
+<div *ngIf="outputBranch">
+  <h3>Branch Name:</h3>
+  <p>{{ outputBranch }}</p>
+</div>
+
+<div *ngIf="outputCommit">
+  <h3>Commit Message:</h3>
+  <p>{{ outputCommit }}</p>
+</div>
+
+<div *ngIf="showGif">
+  <img src="https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Surprise GIF"> <!-- Use o link do GIF aqui -->
+</div>
