@@ -28,7 +28,11 @@ export class FormComponent {
       this.outputBranch = `${this.workType}-GMS-ERPSquad${this.squad}-${this.cardNumber}-${formattedTitle.toLowerCase()}`;
       this.outputCommit = `feat(${this.squad}): [GMS-ERP\\Squad ${this.squad} ${this.cardNumber}] - ${this.cardTitle}`;
     } else {
-      alert('Por favor, preencha todos os campos.');
+      if (this.clickCount >= 5) {
+        this.showGif = true; // Exibe o GIF após 5 cliques
+      } else {
+        this.showGif = false; // Oculta o GIF se os cliques forem menos de 5
+      }    
     }
   }
 }
