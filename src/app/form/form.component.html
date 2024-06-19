@@ -33,5 +33,5 @@
 </div>
 
 <div *ngIf="showGif">
-  <img src="https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Surprise GIF"> <!-- Use o link do GIF aqui -->
+  <img [src]="gifUrl" alt="Surprise GIF" (click)="onImageClick()"> <!-- Adicione o evento de clique -->
 </div>

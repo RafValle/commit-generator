@@ -54,4 +54,5 @@ div img {
   max-width: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Adiciona cursor de pointer para indicar que a imagem é clicável */
 }
