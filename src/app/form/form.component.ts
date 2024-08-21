@@ -10,6 +10,7 @@ export class FormComponent {
   squad: string = '';
   cardTitle: string = '';
   workType: string = '';
+  environment: string = 'GMS-ERP'; // Valor padrão
   outputBranch: string | undefined;
   outputCommit: string | undefined;
   clickCount: number = 0; // Contador de cliques do botão
@@ -25,17 +26,26 @@ export class FormComponent {
       this.showGif = false; 
     }
 
-    if (this.cardNumber && this.squad && this.cardTitle && this.workType) {
-      const formattedTitle = this.cardTitle.split(' ').join('-');
-      this.outputBranch = `${this.workType}-GMS-ERPSquad${this.squad}-${this.cardNumber}-${formattedTitle.toLowerCase()}`;
-      this.outputCommit = `feat(${this.squad}): [GMS-ERP\\Squad ${this.squad} ${this.cardNumber}] - ${this.cardTitle}`;
+    if (this.cardNumber && this.squad && this.cardTitle && this.workType && this.environment) {
+      const formattedTitle = this.cardTitle.split(' ').join('-').toLowerCase();
+
+      if (this.environment === 'AZDE') {
+        // Padrão para Azure
+        this.outputBranch = `${this.workType}/${this.environment}-${this.cardNumber}-${formattedTitle}`;
+        this.outputCommit = `${this.workType}: [${this.environment}-${this.cardNumber}] ${this.cardTitle}`;
+      } else {
+        // Padrão para On-premisse
+        this.outputBranch = `${this.workType}-${this.environment}Squad${this.squad}-${this.cardNumber}-${formattedTitle}`;
+        this.outputCommit = `${this.workType}(${this.squad}): [${this.environment}\\Squad ${this.squad} ${this.cardNumber}] - ${this.cardTitle}`;
+      }
     } else {
       this.clickCount++; 
       if (this.clickCount >= 5) {
         this.showGif = true; 
       } else {
         this.showGif = false; 
-      }    }
+      }    
+    }
   }
 
   onImageClick() {

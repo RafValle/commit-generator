@@ -19,6 +19,12 @@
     <option value="test">Teste: adicionar ou corrigir testes</option>
   </select>
 
+  <label for="environment">Environment:</label>
+  <select id="environment" [(ngModel)]="environment" name="environment" required>
+    <option value="GMS-ERP">On-premisse</option>
+    <option value="AZDE">Azure</option>
+  </select>
+
   <button type="submit">Generate</button>
 </form>
 
