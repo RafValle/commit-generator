@@ -30,14 +30,26 @@
 
 <div *ngIf="outputBranch">
   <h3>Branch Name:</h3>
-  <p>{{ outputBranch }}</p>
+  <p>{{ outputBranch }}
+    <button class="copy-button" (click)="copyToClipboard(outputBranch, 'branch')">
+      📋
+    </button>
+    <span *ngIf="copiedBranch" class="copied-tag">Copiado!</span>
+  </p>
 </div>
 
 <div *ngIf="outputCommit">
   <h3>Commit Message:</h3>
-  <p>{{ outputCommit }}</p>
+  <p>{{ outputCommit }}
+    <button class="copy-button" (click)="copyToClipboard(outputCommit, 'commit')">
+      📋
+    </button>
+    <span *ngIf="copiedCommit" class="copied-tag">Copiado!</span>
+  </p>
 </div>
 
 <div *ngIf="showGif">
   <img [src]="gifUrl" alt="Surprise GIF" (click)="onImageClick()"> <!-- Adicione o evento de clique -->
 </div>
+
+<iframe width="110" height="200" src="https://www.myinstants.com/instant/yamate-kudasai-47380/embed/" frameborder="0" scrolling="no"></iframe>

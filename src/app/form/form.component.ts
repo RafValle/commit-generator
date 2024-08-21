@@ -10,14 +10,22 @@ export class FormComponent {
   squad: string = '';
   cardTitle: string = '';
   workType: string = '';
-  environment: string = 'GMS-ERP'; // Valor padrão
+  environment: string = 'GMS-ERP'; 
   outputBranch: string | undefined;
   outputCommit: string | undefined;
-  clickCount: number = 0; // Contador de cliques do botão
-  imageClickCount: number = 0; // Contador de cliques da imagem
-  showGif: boolean = false; // Controla a exibição do GIF
+  copiedBranch: boolean = false;
+  copiedCommit: boolean = false;
+  clickCount: number = 0; 
+  imageClickCount: number = 0; 
+  showGif: boolean = false; 
   gifUrl: string = 'https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'; // URL do GIF inicial
+  audio = new Audio();
 
+  ngOnInit() {
+    this.audio.src = 'assets/yamate-kudasai.mp3';
+    this.audio.load(); 
+  }
+  
   onSubmit() {
     this.clickCount++; 
     if (this.clickCount >= 5) {
@@ -30,11 +38,9 @@ export class FormComponent {
       const formattedTitle = this.cardTitle.split(' ').join('-').toLowerCase();
 
       if (this.environment === 'AZDE') {
-        // Padrão para Azure
         this.outputBranch = `${this.workType}/${this.environment}-${this.cardNumber}-${formattedTitle}`;
         this.outputCommit = `${this.workType}: [${this.environment}-${this.cardNumber}] ${this.cardTitle}`;
       } else {
-        // Padrão para On-premisse
         this.outputBranch = `${this.workType}-${this.environment}Squad${this.squad}-${this.cardNumber}-${formattedTitle}`;
         this.outputCommit = `${this.workType}(${this.squad}): [${this.environment}\\Squad ${this.squad} ${this.cardNumber}] - ${this.cardTitle}`;
       }
@@ -59,4 +65,22 @@ export class FormComponent {
   changeGif() {
     this.gifUrl = 'https://hentaidude.tv/wp-content/uploads/2022/01/KyonyuuElfOyakoSaimin-Episode1-Omake-4.gif';
   }
+
+  copyToClipboard(text: string, type: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.audio.play(); 
+      
+      if (type === 'branch') {
+        this.copiedBranch = true;
+        setTimeout(() => this.copiedBranch = false, 2000); 
+      } else if (type === 'commit') {
+        this.copiedCommit = true;
+        setTimeout(() => this.copiedCommit = false, 2000); 
+      }
+    }).catch(err => {
+      console.error('Erro ao copiar o texto:', err);
+    });
+  }
+
+
 }

@@ -56,3 +56,46 @@ div img {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer; /* Adiciona cursor de pointer para indicar que a imagem é clicável */
 }
+
+.copy-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.5em; /* Tamanho do ícone */
+  padding: 0;
+  width: auto;
+  height: auto;
+  line-height: 1; /* Garantir que a altura da linha seja ajustada ao ícone */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, color 0.1s ease;
+}
+
+.copy-button:active {
+  transform: scale(0.9); /* Efeito de "pressionado" */
+  color: #555; /* Muda a cor temporariamente */
+}
+
+.copied-tag {
+  margin-left: 10px;
+  color: green;
+  font-size: 0.9em;
+  opacity: 0;
+  animation: fadeInOut 2s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
