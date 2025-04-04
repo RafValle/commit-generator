@@ -38,6 +38,16 @@
   </p>
 </div>
 
+<div *ngIf="outputBranch">
+  <h3>Branch Name (create branch):</h3>
+  <p><strong>git checkout -b </strong>{{ outputBranch }}
+    <button class="copy-button" (click)="copyToClipboard('git checkout -b ' + outputBranch, 'createBranch')">
+      📋
+    </button>
+    <span *ngIf="copiedCreateBranch" class="copied-tag">Copiado!</span>
+  </p>
+</div>
+
 <div *ngIf="outputCommit">
   <h3>Commit Message:</h3>
   <p>{{ outputCommit }}
@@ -48,6 +58,17 @@
   </p>
 </div>
 
-<div *ngIf="showGif">
+<div *ngIf="showGif && !showJoba">
   <img [src]="gifUrl" alt="Surprise GIF" (click)="onImageClick()"> <!-- Adicione o evento de clique -->
 </div>
+<div class="video-div">
+  <video style="width: 450px;" *ngIf="showJoba" autoplay loop muted (click)="onImageClick()">
+    <source src="assets/joba.MP4" type="video/mp4">
+    Seu navegador não suporta a tag de vídeo.
+  </video>
+  <video style="width: 290px;" *ngIf="showJoba" autoplay loop muted (click)="onImageClick()">
+    <source src="assets/cala.MP4" type="video/mp4">
+    Seu navegador não suporta a tag de vídeo.
+  </video>
+</div>
+
