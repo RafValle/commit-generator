@@ -22,12 +22,36 @@ export class FormComponent {
   showGif: boolean = false;
   showJoba: boolean = false;
   showGifSpecial!: string;
-  gifUrl: string = 'https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'; // URL do GIF inicial
+  gifUrl: string = 'https://i.makeagif.com/media/3-06-2016/cS4w3b.gif'; // URL do GIF inicial
   audio = new Audio();
+  gyro = new Audio();
+  playInterval!: number;      // guarda o ID do setInterval
 
   ngOnInit() {
+    this.gyro.src = 'assets/gyro.mp3';
+    this.gyro.load();
+    this.gyro.play()
+    this.playGyro();                  // toca na primeira vez (page load)
     this.audio.src = 'assets/yamate-kudasai.mp3';
     this.audio.load();
+
+    this.playInterval = window.setInterval(() => {
+      this.playGyro();
+    }, 5 * 60 * 1000);
+
+  }
+
+  private playGyro(): void {
+    this.gyro.currentTime = 0;
+    this.gyro.play()
+  }
+
+  ngOnDestroy(): void {
+    // limpa o intervalo e pausa o áudio quando o componente é destruído
+    if (this.playInterval) {
+      clearInterval(this.playInterval);
+    }
+    this.gyro.pause();
   }
 
   formatText(text: string) {
@@ -40,13 +64,8 @@ export class FormComponent {
   }
 
   onSubmit() {
-    this.clickCount++;
-    if (this.clickCount >= 5) {
-      this.showGif = true;
-    } else {
-      this.showGif = false;
-    }
-
+    this.changeGif();
+    this.audio.play()
     if (this.cardNumber && this.squad && this.cardTitle && this.workType && this.environment) {
       let formattedTitle = this.cardTitle.split(' ').join('-').toLowerCase();
 
@@ -57,31 +76,24 @@ export class FormComponent {
         this.outputBranch = `${this.workType}-${this.environment}Squad${this.squad}-${this.cardNumber}-${this.formatText(formattedTitle)}`;
         this.outputCommit = `${this.workType}(${this.squad}): [${this.environment}\\Squad ${this.squad} ${this.cardNumber}] - ${this.formatText(this.cardTitle)}`;
       }
-    } else {
-      this.clickCount++;
-      if (this.clickCount >= 5) {
-        this.showGif = true;
-      } else {
-        this.showGif = false;
-      }
-    }
+    } 
   }
 
   onImageClick() {
-    const gif = 'https://hentaidude.tv/wp-content/uploads/2022/01/KyonyuuElfOyakoSaimin-Episode1-Omake-4.gif';
-    if (this.gifUrl === gif){
-      this.showJoba = true;
+    const gif = 'https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false';
+
+    if (this.gifUrl !== gif){
     }else {
       this.imageClickCount++;
       if (this.imageClickCount >= 5) {
         this.imageClickCount = 0;
-        this.changeGif();
+        this.gifUrl = "https://i.makeagif.com/media/3-06-2016/cS4w3b.gif"
       }
     }
   }
 
   changeGif() {
-    this.gifUrl = 'https://hentaidude.tv/wp-content/uploads/2022/01/KyonyuuElfOyakoSaimin-Episode1-Omake-4.gif';
+    this.gifUrl = 'https://steamuserimages-a.akamaihd.net/ugc/545258778418733357/190047F53F0BD2E3C8590CF812CEF065CF40AF83/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false';
   }
 
   copyToClipboard(text: string, type: string) {
@@ -102,6 +114,4 @@ export class FormComponent {
       console.error('Erro ao copiar o texto:', err);
     });
   }
-
-
 }

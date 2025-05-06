@@ -58,17 +58,8 @@
   </p>
 </div>
 
-<div *ngIf="showGif && !showJoba">
+<div>
   <img [src]="gifUrl" alt="Surprise GIF" (click)="onImageClick()"> <!-- Adicione o evento de clique -->
 </div>
-<div class="video-div">
-  <video style="width: 450px;" *ngIf="showJoba" autoplay loop muted (click)="onImageClick()">
-    <source src="assets/joba.MP4" type="video/mp4">
-    Seu navegador não suporta a tag de vídeo.
-  </video>
-  <video style="width: 290px;" *ngIf="showJoba" autoplay loop muted (click)="onImageClick()">
-    <source src="assets/cala.MP4" type="video/mp4">
-    Seu navegador não suporta a tag de vídeo.
-  </video>
-</div>
+
 
