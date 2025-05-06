@@ -1,3 +1,4 @@
+import { HostListener } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
@@ -26,6 +27,8 @@ export class FormComponent {
   audio = new Audio();
   gyro = new Audio();
   playInterval!: number;      // guarda o ID do setInterval
+  firstClickDone = false;
+
 
   ngOnInit() {
     this.gyro.src = 'assets/gyro.mp3';
@@ -41,17 +44,17 @@ export class FormComponent {
 
   }
 
+  @HostListener('document:click')
+  handleDocumentClick(): void {
+    if (!this.firstClickDone) {
+      this.playGyro();
+      this.firstClickDone = true;   // bloqueia execuções futuras
+    }
+  }
+
   private playGyro(): void {
     this.gyro.currentTime = 0;
     this.gyro.play()
-  }
-
-  ngOnDestroy(): void {
-    // limpa o intervalo e pausa o áudio quando o componente é destruído
-    if (this.playInterval) {
-      clearInterval(this.playInterval);
-    }
-    this.gyro.pause();
   }
 
   formatText(text: string) {
